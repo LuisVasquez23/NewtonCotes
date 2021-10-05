@@ -13,9 +13,6 @@ import javax.swing.JOptionPane;
  */
 public class MainApp extends javax.swing.JFrame {
 
-    /**
-     * Creates new form MainApp
-     */
     public MainApp() {
         initComponents();
         this.setLocationRelativeTo(null);
