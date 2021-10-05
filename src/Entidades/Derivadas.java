@@ -1,6 +1,9 @@
 package Entidades;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import org.lsmp.djep.djep.DJep;
+import org.nfunk.jep.JEP;
 import org.nfunk.jep.Node;
 
 /**
@@ -73,5 +76,21 @@ public class Derivadas {
         }
 
     }
-
+    
+    public double EvaluarFx(Double valor, String funcion){
+        
+        BigDecimal bd = new BigDecimal(valor).setScale(2, RoundingMode.HALF_UP);
+        double value = bd.doubleValue();
+        
+        JEP j = new JEP();
+        j.addStandardConstants();
+        j.addStandardFunctions();
+        j.addVariable("x", value); //("variable", numero a evaluar) 
+        j.parseExpression(funcion);
+        
+        bd = new BigDecimal(j.getValue()).setScale(2, RoundingMode.HALF_UP);
+        value = bd.doubleValue();
+        
+        return value;
+    }
 }

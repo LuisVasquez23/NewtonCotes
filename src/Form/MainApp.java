@@ -5,6 +5,7 @@
  */
 package Form;
 
+import Entidades.NewtonCotes;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,7 +13,9 @@ import javax.swing.JOptionPane;
  * @author luis
  */
 public class MainApp extends javax.swing.JFrame {
-
+    
+    private NewtonCotes newtonCotes = new NewtonCotes();
+    
     public MainApp() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -40,10 +43,14 @@ public class MainApp extends javax.swing.JFrame {
         inputFuncion = new javax.swing.JTextField();
         InputLimiteInferior = new javax.swing.JTextField();
         InputCantidadTrapecios = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        InputPorcentajeError = new javax.swing.JSpinner();
         jSeparator2 = new javax.swing.JSeparator();
         btnCalcular = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        labelIntegral = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        labelError = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        labelSegundaDerivada = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,14 +75,21 @@ public class MainApp extends javax.swing.JFrame {
 
         jLabel11.setText("Ecacuación:");
 
-        jLabel3.setText("Porcentaje de error:");
-
         btnCalcular.setText("Calcular");
         btnCalcular.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCalcularActionPerformed(evt);
             }
         });
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel4.setText("Integral:");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel5.setText("Error calculado:");
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel13.setText("F'':");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -99,11 +113,9 @@ public class MainApp extends javax.swing.JFrame {
                                     .addComponent(InputLimiteInferior, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(92, 92, 92)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
                                     .addComponent(jLabel8)
                                     .addComponent(InputCantidadTrapecios, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnCalcular, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(InputPorcentajeError, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(btnCalcular, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(inputFuncion, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel1)
                     .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -111,7 +123,19 @@ public class MainApp extends javax.swing.JFrame {
                         .addGap(1, 1, 1)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7)))
+                            .addComponent(jLabel7)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(labelIntegral))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(labelError))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel13)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(labelSegundaDerivada))))
                     .addComponent(jLabel6))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
@@ -131,21 +155,14 @@ public class MainApp extends javax.swing.JFrame {
                             .addComponent(jLabel9)
                             .addComponent(jLabel8))
                         .addGap(4, 4, 4)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(InputPorcentajeError, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(InputCantidadTrapecios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(inputLimiteSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(inputFuncion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(InputCantidadTrapecios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(inputLimiteSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(inputFuncion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -154,40 +171,56 @@ public class MainApp extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addGap(18, 33, Short.MAX_VALUE)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(133, 133, 133))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(labelIntegral))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(labelError))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(labelSegundaDerivada))
+                .addGap(48, 48, 48))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularActionPerformed
         
         //Declaracion de variables
         double limiteSuperior  , limiteInferior = 0.0 ;
         String funcion = "";
-        int cantidadTrapecios = 0, porcentajeError = 0;
+        int cantidadTrapecios = 0;
         
         try {
             
             // Asignacion de valores 
             limiteSuperior = Double.parseDouble(this.inputLimiteSuperior.getText());
             limiteInferior = Double.parseDouble(this.InputLimiteInferior.getText());
-            porcentajeError = Integer.parseInt(this.InputPorcentajeError.getValue().toString());
             cantidadTrapecios = Integer.parseInt(this.InputCantidadTrapecios.getText());
             funcion = this.inputFuncion.getText();
             
             if (funcion.isEmpty()) {
                 JOptionPane.showMessageDialog(null,"Por favor ingresa una función");
-            }else if (porcentajeError < 0 || porcentajeError > 10) {
-                JOptionPane.showMessageDialog(null,"Por favor ingresa un porcentaje entre 0 ó 10");        
-            }else if (cantidadTrapecios >= 0){
+            }else if (cantidadTrapecios < 0){
                 JOptionPane.showMessageDialog(null,"La cantidad de trapecios debe ser mayor a 0");
             }else{
-                
+                newtonCotes.setFuncion(funcion);
+                newtonCotes.setLimiteInferior(limiteInferior);
+                newtonCotes.setLimiteSuperior(limiteSuperior);
+                newtonCotes.setCantidadTrapecios(cantidadTrapecios);
+            
+                this.labelIntegral.setText(newtonCotes.calcularIntegral() + " u^2");
+                this.labelError.setText(newtonCotes.calcularError() + " %");
+                this.labelSegundaDerivada.setText(newtonCotes.calcularSegundaDerivada());
             }
             
         } catch (Exception e) {
@@ -234,20 +267,24 @@ public class MainApp extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField InputCantidadTrapecios;
     private javax.swing.JTextField InputLimiteInferior;
-    private javax.swing.JSpinner InputPorcentajeError;
     private javax.swing.JButton btnCalcular;
     private javax.swing.JTextField inputFuncion;
     private javax.swing.JTextField inputLimiteSuperior;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel labelError;
+    private javax.swing.JLabel labelIntegral;
+    private javax.swing.JLabel labelSegundaDerivada;
     // End of variables declaration//GEN-END:variables
 }
